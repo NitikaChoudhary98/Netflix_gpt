@@ -49,13 +49,14 @@ const Login = () => {
           // Signed up
           const user = userCredential.user;
 
-          updateProfile(auth.currentUser, {
+          updateProfile(user, {
             displayName: name.current.value,
             photoURL:
               "https://lh3.googleusercontent.com/a/ACg8ocIdrhMHOLX0_cpeOmMyI-4A87oiNO00jyOheibm6cH9LTY3Qcq0=s288-c-no",
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
+
               dispatch(
                 addUser({
                   uid: uid,
@@ -64,7 +65,6 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/");
             })
             .catch((error) => {
               setErrorMessage(error.message);
@@ -88,7 +88,6 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -97,6 +96,7 @@ const Login = () => {
         });
     }
   };
+
   return (
     <div>
       <Header />
